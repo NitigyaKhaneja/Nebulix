@@ -17,6 +17,7 @@ interface MovieCardProps {
   movie: Movie;
   onViewDetails?: () => void;
   onBookmark?: (id: number) => void; // Now optional
+  bookmarked: boolean;
 }
 
 export default function MovieCard({ movie, onViewDetails, onBookmark }: MovieCardProps) {

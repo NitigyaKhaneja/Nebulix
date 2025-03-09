@@ -30,6 +30,7 @@ interface Movie {
   videos?: {
     results: { key: string; site: string; type: string }[];
   };
+  bookmarked?: boolean;
 }
 
 export default function HomePage() {

@@ -43,12 +43,19 @@ export default function MovieDetails() {
     async function fetchMovie() {
       try {
         if (!params.title) return;
-        const formattedTitle = decodeURIComponent(params.title).replace(/-/g, " ");
+    
+        // Ensure params.title is always a string
+        const title: string = Array.isArray(params.title) ? params.title[0] : params.title;
+        
+        const formattedTitle = decodeURIComponent(title).replace(/-/g, " ");
         const response = await fetch(`${SEARCH_API_URL}${formattedTitle}`);
         const data = await response.json();
+    
         if (data.results.length > 0) {
           const movieId = data.results[0].id;
-          const detailsResponse = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&append_to_response=videos,credits`);
+          const detailsResponse = await fetch(
+            `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&append_to_response=videos,credits`
+          );
           const details = await detailsResponse.json();
           setMovie(details);
         }
@@ -58,6 +65,7 @@ export default function MovieDetails() {
         setLoading(false);
       }
     }
+    
 
     fetchMovie();
   }, [params.title]);

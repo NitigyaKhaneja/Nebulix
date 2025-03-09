@@ -42,6 +42,7 @@ export default function WatchlistPage() {
             <MovieCard
               key={movie.id}
               movie={movie}
+              bookmarked={watchlist.some((m) => m.id === movie.id)}
               onBookmark={handleRemoveBookmark} // Pass function to remove from watchlist
             />
           ))}
